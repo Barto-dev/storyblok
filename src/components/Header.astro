@@ -7,7 +7,6 @@ const { data } = await storyblokApi.get('cdn/stories/config', {
 });
 
 const headerMenu = data?.story?.content?.header_menu;
-console.log(headerMenu);
 ---
 
 <header class="w-full h-24 bg-[#f7f6fd]">
@@ -22,7 +21,7 @@ console.log(headerMenu);
             return (
               <li>
                 <a href={`/${link.cached_url}`} class="hover:text-[#50b0ae]">
-                  {link.story.name}
+                  {link.story?.name}
                 </a>
               </li>
             );
