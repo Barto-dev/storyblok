@@ -1,6 +1,8 @@
 ---
 import { useStoryblokApi } from '@storyblok/astro';
+import { getTransLink, languages } from '../utils/lang';
 const storyblokApi = useStoryblokApi();
+const { language, langSwitch } = Astro.props;
 const { data } = await storyblokApi.get('cdn/stories/config', {
   version: 'draft',
   resolve_links: 'url',
@@ -11,7 +13,7 @@ const headerMenu = data?.story?.content?.header_menu;
 
 <header class="w-full h-24 bg-[#f7f6fd]">
   <div class="container h-full mx-auto flex items-center justify-between">
-    <a href="/">
+    <a href={getTransLink(language, '/')}>
       <h1 class="text-[#50b0ae] text-3xl font-bold">Storyblok Astro</h1>
     </a>
     <nav>
@@ -20,13 +22,23 @@ const headerMenu = data?.story?.content?.header_menu;
           headerMenu?.map(({ link }) => {
             return (
               <li>
-                <a href={`/${link.cached_url}`} class="hover:text-[#50b0ae]">
+                <a href={getTransLink(language, `/${link.cached_url}`)} class="hover:text-[#50b0ae]">
                   {link.story?.name}
                 </a>
               </li>
             );
           })
         }
+      {
+        languages.map((lang) => (
+          <a
+            class={`lang-toggle hover:bg-gray-200 px-2 ${lang === language ? 'bg-gray-200' : ''}`}
+            href={langSwitch[lang]}
+          >
+            {lang}
+          </a>
+        ))
+      }
       </ul>
     </nav>
   </div>

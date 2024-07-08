@@ -2,13 +2,13 @@
 import { storyblokEditable } from '@storyblok/astro'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
-const { blok } = Astro.props
+const { blok, language } = Astro.props
 ---
 
 <main {...storyblokEditable(blok)}>
   {
     blok.body?.map((blok) => {
-      return <StoryblokComponent blok={blok} />
+      return <StoryblokComponent {language} blok={blok} />
     })
   }
 </main>
