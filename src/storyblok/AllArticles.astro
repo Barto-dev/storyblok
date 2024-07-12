@@ -1,19 +1,20 @@
 ---
-import { storyblokEditable, useStoryblokApi } from '@storyblok/astro'
-import ArticleCard from '../components/ArticleCard.astro'
+import { storyblokEditable, useStoryblokApi } from '@storyblok/astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import isPreview from '../utils/isPreview';
 
-const { blok, language } = Astro.props
+const { blok, language } = Astro.props;
 
-const storyblokApi = useStoryblokApi()
+const storyblokApi = useStoryblokApi();
 // noinspection TypeScriptValidateTypes
 const { data } = await storyblokApi.get(`cdn/stories`, {
-  version: 'draft',
+  version: isPreview() ? 'draft' : 'published',
   starts_with: 'blog/',
   is_startpage: false,
   language,
-})
+});
 
-const articles = data.stories
+const articles = data.stories;
 ---
 
 <section class="mx-6 my-12" {...storyblokEditable(blok)}>
@@ -23,14 +24,14 @@ const articles = data.stories
   <ul class="grid grid-cols-1 gap-6 md:grid-cols-3">
     {
       articles?.length &&
-      articles.map((article) => {
-        article.content.slug = article.slug
-        return (
-          <li>
-            <ArticleCard {language} article={article.content} />
-          </li>
-        )
-      })
+        articles.map((article) => {
+          article.content.slug = article.slug;
+          return (
+            <li>
+              <ArticleCard {language} article={article.content} />
+            </li>
+          );
+        })
     }
   </ul>
 </section>
