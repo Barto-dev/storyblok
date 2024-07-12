@@ -24,7 +24,7 @@ const articles = data.stories;
   <ul class="grid grid-cols-1 gap-6 md:grid-cols-3">
     {
       articles?.length &&
-        articles.map((article) => {
+        articles.map((article: any) => {
           article.content.slug = article.slug;
           return (
             <li>
