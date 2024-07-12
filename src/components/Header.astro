@@ -33,7 +33,7 @@ const headerMenu: any = data?.story?.content?.header_menu;
         languages.map((lang) => (
           <a
             class={`lang-toggle hover:bg-gray-200 px-2 ${lang === language ? 'bg-gray-200' : ''}`}
-            href={langSwitch[lang]}
+            href={langSwitch?.[lang]}
           >
             {lang}
           </a>

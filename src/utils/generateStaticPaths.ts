@@ -12,6 +12,7 @@ export default async function generateStaticPaths() {
   const links = await storyblokApi.getAll('cdn/links', {
     version: isPreview() ? 'draft' : 'published',
   });
+  console.log(links);
   let paths: Path[] = [];
   links
     .filter((link) => !link.is_folder)
