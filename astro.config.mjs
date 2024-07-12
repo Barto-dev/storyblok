@@ -3,8 +3,7 @@ import storyblok from '@storyblok/astro';
 import { loadEnv } from 'vite';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless';
-
+import netlify from "@astrojs/netlify";
 const env = loadEnv('', process.cwd(), 'STORYBLOK');
 
 
@@ -34,5 +33,5 @@ export default defineConfig({
     }
   }), tailwind()],
   output: env.STORYBLOK_IS_PREVIEW === 'yes' ? 'server' : 'static',
-  adapter: vercel()
+  adapter: netlify()
 });
